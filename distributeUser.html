@@ -1,0 +1,413 @@
+<!doctype html>
+<html class="no-js">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="exitRelay module" href="exitRelay.html" /><link rel="prev" title="barplot module" href="barplot.html" />
+
+    <meta name="generator" content="sphinx-4.3.0, furo 2022.01.02"/>
+        <title>distributeUser module - TOR-RPKI 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=df49af52631e7917044a9c21a57f7b83170a6dd0" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=fade93df149f7c5fedb3ff897f799dc7d283b420" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  body[data-theme="dark"] {
+    --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+  }
+  @media (prefers-color-scheme: dark) {
+    body:not([data-theme="light"]) {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+  }
+</style></head>
+  <body>
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke="none" d="M0 0h24v24H0z" />
+      <line x1="4" y1="6" x2="20" y2="6" />
+      <line x1="10" y1="12" x2="20" y2="12" />
+      <line x1="6" y1="18" x2="20" y2="18" />
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="index.html"><div class="brand">TOR-RPKI 0.1 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
+  
+  
+  <span class="sidebar-brand-text">TOR-RPKI 0.1 documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="search.html" role="search">
+  <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 has-children"><a class="reference internal" href="preprocess.html">Preprocess Consensus</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="preprocess_consensus.html">preprocess_consensus module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="projection.html">projection module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="upgradeIpASNMap.html">upgradeIpASNMap module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="util.html">util module</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="L1Sim.html">Level 1 Simulator with Vanilla Algorithm</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="guard_sim.html">guard_sim module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="util.html">util module</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="L2Sim.html">Level 2 Simulator with Discount and Matching Algorithm</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="analyzeOptParam.html">analyzeOptParam module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ASNrov.html">ASNrov module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="barplot.html">barplot module</a></li>
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">distributeUser module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exitRelay.html">exitRelay module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="familyCheck2.html">familyCheck2 module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getASNipFreqOrigin.html">getASNipFreqOrigin module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getExpectedValue.html">getExpectedValue module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="graph_sim.html">graph_sim module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guard_sim.html">guard_sim module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guard_simExit.html">guard_simExit module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="optimizeParam.html">optimizeParam module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ROA_ROVDistribution.html">ROA_ROVDistribution module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utilExit.html">utilExit module</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="L2HighCoverageSim.html">Level 2 Simulator with High ROA and ROV Coverage</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="modifyConsensus.html">modifyConsensus module</a></li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          <section id="module-distributeUser">
+<span id="distributeuser-module"></span><h1>distributeUser module<a class="headerlink" href="#module-distributeUser" title="Permalink to this headline">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="distributeUser.assignASN">
+<span class="sig-prename descclassname"><span class="pre">distributeUser.</span></span><span class="sig-name descname"><span class="pre">assignASN</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">numUsers</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">countries</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cweights</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selection_algo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">roaFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">make_pickle</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#distributeUser.assignASN" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate client object with countries and ASN assigned to each. The ASN are assigned by choosing randomly within the client’s 
+country’s ASN. The weight of the ASN selection process is based on which AS announce the most IP addresses. After the AS is assigned to client,
+an IP address within the AS is randomly assigned to the client.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>numUsers</strong> – (int) number of clients generated</p></li>
+<li><p><strong>countries</strong> – (list) list of countries of possible TOR user origin</p></li>
+<li><p><strong>cweights</strong> – (list) weight of each country in the selection process.</p></li>
+<li><p><strong>selection_algo</strong> – (string) selection algorithm for guards, choose from vanilla, matching or input the discount value (e.g. 0.9)</p></li>
+<li><p><strong>roaFile</strong> – (string) filename to .csv file containing ROA information to check for roa coverage</p></li>
+<li><p><strong>make_pickle</strong> – (boolean) specify whether to make coverage dict for future use</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>(list) a list of client objects with country, ASN, roa/rov coverage, and selection algo assigned</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="distributeUser.assignCountry">
+<span class="sig-prename descclassname"><span class="pre">distributeUser.</span></span><span class="sig-name descname"><span class="pre">assignCountry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">numUsers</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">countries</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cweights</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selection_algo</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#distributeUser.assignCountry" title="Permalink to this definition">¶</a></dt>
+<dd><p>generate the desired number of users and assign country randomly to each client based on the TOR user per country stats. 
+Also assigns guard selection algo to each client. Both countries and cweights are global variable declared at the beginning of 
+the file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>numUsers</strong> – (int) number of clients generated</p></li>
+<li><p><strong>countries</strong> – (list) list of countries of possible TOR user origin</p></li>
+<li><p><strong>cweights</strong> – (list) weight of each country in the selection process.</p></li>
+<li><p><strong>selection_algo</strong> – (string) selection algorithm for guards, choose from vanilla, matching or input the discount value (e.g. 0.9)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>(list) a list of client objects with country and selection algo assigned</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="distributeUser.check_roa">
+<span class="sig-prename descclassname"><span class="pre">distributeUser.</span></span><span class="sig-name descname"><span class="pre">check_roa</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">client</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">roaDict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#distributeUser.check_roa" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns the ROA coverage info using the indirect dictionary created above.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>client</strong> – client object that need coverage check</p></li>
+<li><p><strong>roaDict</strong> – indirect dictionary created using the check_roa_pre() function</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>(boolean) true or false value indicating the ROA coverage status of the client</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="distributeUser.check_roa_debug">
+<span class="sig-prename descclassname"><span class="pre">distributeUser.</span></span><span class="sig-name descname"><span class="pre">check_roa_debug</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cip</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cASN</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cprefix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">roaDict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#distributeUser.check_roa_debug" title="Permalink to this definition">¶</a></dt>
+<dd><p>debug function for the indirect ROA coverage check method</p>
+</dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="distributeUser.check_roa_pre">
+<span class="sig-prename descclassname"><span class="pre">distributeUser.</span></span><span class="sig-name descname"><span class="pre">check_roa_pre</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">roaFile</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#distributeUser.check_roa_pre" title="Permalink to this definition">¶</a></dt>
+<dd><p>make an indirect dictionary to check for roa coverage based on IP address. This indirect dictionary works by assigning all ROA coverage information 
+with the same first octet in the same dictionary entry. In this way, to check an IP address’ coverage, the program only need to iterate through 
+ROA entry of the same first octet, thus it will decrease the runtime of check up.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>roaFile</strong> – (string) filename to the .csv file containing ROA info</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>(dictionary) indirect dictionary, octet -&gt; [list of roa coverage info]</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="distributeUser.coverage_dict">
+<span class="sig-prename descclassname"><span class="pre">distributeUser.</span></span><span class="sig-name descname"><span class="pre">coverage_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">roas</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ipv4s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">make_pickle</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#distributeUser.coverage_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>given a list of IP addresses make a dictionary that maps IP address -&gt; roa coverage info, if 
+the IP is not covered IP -&gt; None. 
+format: IP -&gt;  [IPnetwork, max len, prefix len, ASN]</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>roas</strong> – (string) filename to the .csv file for ROA</p></li>
+<li><p><strong>ipv4s</strong> – (list) list of IPv4 addresses that needs to know their ROA coverage</p></li>
+<li><p><strong>make_pickle</strong> – (boolean) specify whether the resulting dictionary will be pikled for future use</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="distributeUser.get_prefix_addresses_map">
+<span class="sig-prename descclassname"><span class="pre">distributeUser.</span></span><span class="sig-name descname"><span class="pre">get_prefix_addresses_map</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#distributeUser.get_prefix_addresses_map" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a map of IP prefix to number of possible users. 
+used to quickly sum up the number of possible IPv4 announced within an AS</p>
+<p>/32 -&gt; 0 client 
+/31 -&gt; 2 clients</p>
+</dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="distributeUser.get_roas">
+<span class="sig-prename descclassname"><span class="pre">distributeUser.</span></span><span class="sig-name descname"><span class="pre">get_roas</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#distributeUser.get_roas" title="Permalink to this definition">¶</a></dt>
+<dd><p>input a roa csv file and output a list of list containing each roa’s info 
+[IPnetwork, max len, prefix len, ASN]</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filename</strong> – (string) name to the .csv file containing ROA information</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>(list) a nested list containing all ROA is the format: [IPnetwork, max len, prefix len, ASN]</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="distributeUser.user_specified_client2">
+<span class="sig-prename descclassname"><span class="pre">distributeUser.</span></span><span class="sig-name descname"><span class="pre">user_specified_client2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">roa</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rov</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">roa_rov</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">neither</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numClients</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">select_algo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">csvfile</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#distributeUser.user_specified_client2" title="Permalink to this definition">¶</a></dt>
+<dd><p>primary function used to make customized client objects based the provided roa, rov coverage.
+This function makes a client object, assign country, ASN, ip address, check to see if the coverage category still need this kind of client, if in need append to the result list else discard the client and start over again. 
+Because the function randomly assigns country, ASN, etc and the roa coverage stems from these info. We cannot specify in making a client having certain coverage. So we just keep making new client until every coverage category has been fulfilled.
+The resulting list could be pickled for future use, so each run of simulation is using the same client list, thus the same roa,rov coverage situation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>roa</strong> – (int) the number of ROA covered clients</p></li>
+<li><p><strong>rov</strong> – (int) the number of ROV covered clients</p></li>
+<li><p><strong>roa_rov</strong> – (int) the number of ROA covered and ROV covered clients</p></li>
+<li><p><strong>neither</strong> – (int) the number of clients with no coverage</p></li>
+<li><p><strong>numClients</strong> – (int) total number of clients in the result list based on the above weights</p></li>
+<li><p><strong>selection_algo</strong> – (string) selection algorithm for guards, choose from vanilla, matching or input the discount value (e.g. 0.9)</p></li>
+<li><p><strong>csvfile</strong> – (string) filename to .csv file containing ROA information to check for roa coverage</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>(list) list of client with the specified coverage and selection algo</p>
+</dd>
+</dl>
+</dd></dl>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="exitRelay.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">exitRelay module</div>
+              </div>
+              <svg><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="barplot.html">
+              <svg><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">barplot module</div>
+                
+              </div>
+            </a>
+        </div>
+
+        <div class="related-information">
+              Copyright &#169; 2022, Siyang |
+          Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+          <a href="https://github.com/pradyunsg/furo">Furo theme</a>.
+            | <a class="muted-link" href="_sources/distributeUser.rst.txt"
+               rel="nofollow">
+              Show Source
+            </a>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer no-toc">
+      
+      
+      
+    </aside>
+  </div>
+</div><script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/scripts/furo.js"></script>
+    </body>
+</html>
